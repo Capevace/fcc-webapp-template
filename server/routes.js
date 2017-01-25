@@ -33,6 +33,8 @@ module.exports = (app, passport) => {
 
   });
 
+  app.get('/status', (req, res) => res.json({ loggedIn: req.isAuthenticated() }));
+
   app.post('/login', passport.authenticate('local-login', {
     successRedirect: '/',
     failureRedirect: '/login',
@@ -43,6 +45,14 @@ module.exports = (app, passport) => {
     successRedirect: '/users',
     failureRedirect: '/signup',
     failureFlash : true
+  }));
+
+  app.get('/auth/twitter', passport.authenticate('twitter'));
+
+  // handle the callback after twitter has authenticated the user
+  app.get('/auth/twitter/callback', passport.authenticate('twitter', {
+    successRedirect : '/status',
+    failureRedirect : '/'
   }));
 };
 

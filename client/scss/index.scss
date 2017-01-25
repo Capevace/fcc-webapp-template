@@ -1,2 +1,10 @@
 @import "variables";
 @import "bootstrap/bootstrap";
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+.btn-outline-secondary:hover {
+  color: $brand-primary;
+}
